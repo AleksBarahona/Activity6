@@ -37,43 +37,5 @@ export class userController  {
 		}
 	}
 
-    static async updateUser(req: Request, res: Response) {
-		try {
-			const userId = req.params.id;
-			const response = await UserService.updateUser(userId, req.body);
-
-			if (!response) {
-				res.status(404).json({ error: 'User not found' });
-			}
-
-			if (response.affectedRows > 0) {
-				res.json({ success: 'User successfully updated' });
-			} else {
-				res.status(500).json({ error: 'Failed to update user' });
-			}
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ error: 'Internal server error' });
-		}
-	}
-
-	static async deleteUser(req: Request, res: Response) {
-		try {
-			const userId = req.params.id;
-			const response = await UserService.deleteUser(userId);
-
-			if (!response) {
-				res.status(404).json({ error: 'User not found' });
-			}
-
-			if (response.affectedRows > 0) {
-				res.json({ success: 'User successfully deleted' });
-			} else {
-				res.status(500).json({ error: 'Failed to delete user' });
-			}
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ error: 'Internal server error' });
-		}
-	}
+    
 }

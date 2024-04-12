@@ -43,47 +43,6 @@ export class UserService {
         });
     }
     
-    static async updateUser(
-		userId: string,
-		userData: Partial<UpdateUserData>
-	): Promise<ResultSetHeader> {
-		const setValues = [];
-		const values: string[] = [];
-
-		for (const [key, value] of Object.entries(userData)) {
-			setValues.push(`${key} = ?`);
-			values.push(value);
-		}
-
-		if (setValues.length === 0) {
-			throw new Error('No fields provided for update.');
-		}
-
-		const query = `UPDATE users SET ${setValues.join(', ')} WHERE user_id = ?`;
-		values.push(userId);
-
-		return new Promise<ResultSetHeader>((resolve, reject) => {
-			connection.query<ResultSetHeader>(query, values, (error, results) => {
-				if (error) {
-					reject(error);
-				} else {
-					resolve(results);
-				}
-			});
-		});
-	}
-
-	static async deleteUser(userId: string): Promise<ResultSetHeader> {
-		return new Promise<ResultSetHeader>((resolve, reject) => {
-			const query = `DELETE FROM users WHERE user_id = ?`;
-			connection.query<ResultSetHeader>(query, [userId], (error, results) => {
-				if (error) {
-					reject(error);
-				} else {
-					resolve(results);
-				}
-			});
-		});
-	}
+    
 
 }
